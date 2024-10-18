@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind CDN with Custom Config</title>
+
+    <!-- Include Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Include Phosphor Icons CDN -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fruit: {
+                            100: "#f1fcf4",
+                            200: "#c0f2d3",
+                            300: "#8fe6b2",
+                            400: "#57d188",
+                            500: "#30b766",
+                            600: "#239952",
+                            700: "#1e7742",
+                            800: "#1d5e38",
+                            900: "#1a4d30",
+                            a: "#239952",
+                            b: "#118563",
+                            DEFAULT: "#239952",
+                        },
+                        kraton: {
+                            a: "#239952",
+                            b: "#118563",
+                            DEFAULT: "#1D9258",
+                        },
+                        vivid: "#992323",
+                        falu: "#851111",
+                        lblue: {
+                            a: "#FFFFFF",
+                            b: "#5293FF",
+                            c: "#002947",
+                            DEFAULT: "#002947",
+                        },
+                        lgreen: {
+                            a: "#EAFFED",
+                            b: "#005C2C",
+                            c: "#005C2C",
+                            DEFAULT: "#005C2C",
+                        },
+                        lred: {
+                            a: "#FFEEEE",
+                            b: "#980000",
+                            c: "#980000",
+                            DEFAULT: "#980000",
+                        },
+                        dark: {
+                            a: "#FFFFFF",
+                            b: "#000000",
+                            c: "#000000",
+                            DEFAULT: "#083700",
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body>
+    <div class="relative w-full h-screen p-5 text-sm sm:px-10 md:px-20 lg:px-10 lg:py-10 font-sora md:text-medium">
+        <!-- Video background -->
+        <video autoplay muted loop playsinline class="fixed top-0 left-0 object-cover w-full min-h-screen m-0">
+            <source src="assets/screensaver.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="relative z-10 flex flex-col w-full">
+
+            <!-- Modal days -->
+
+
+            <div
+                class="relative p-3 overflow-hidden border border-white header bg-white/80 backdrop-filter backdrop-blur-lg rounded-2xl sm:p-5">
+                <div
+                    class="hidden sm:block absolute w-1/2 h-full rounded-t-[100px] bg-red-300 right-0 top-0 translate-x-1/2 bg-gradient-to-b from-[#d1d1d1] to-[#ededed] ">
+                </div>
+                <div class="flex items-end justify-between">
+                    <div class="flex flex-wrap items-center justify-center gap-6 text-center lg:justify-start">
+                        <div class="flex items-center gap-3">
+                            <img src="assets/logo.png" class="h-10 sm:h-14">
+                        </div>
+                        <div class="z-50 flex flex-col items-center lg:items-start">
+                            <h1 class="font-bold uppercase md:text-2xl">Tournament Name</h1>
+                            <h3 class="font-light uppercase">Course</h3>
+
+                            <h3 class="block font-light uppercase lg:hidden">
+                                Hari, Tanggal
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="right-0 z-50 flex-col items-end hidden font-semibold uppercase xl:flex">
+                        <span class="text-xl ">Hari, Tanggal</span>
+                        <div class="text-2xl font-semibold"><span>Jam</span>:<span>Menit</span>:<span>Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- countdown -->
+            <!-- <span class="fixed z-50 hidden font-semibold xl:block right-3 top-3 md:text-4xl text-white/30">
+              DETIK
+            </span> -->
+
+
+            <!-- page body -->
+            <div
+                class="flex-col flex-1 w-full mt-4 overflow-hidden border border-2 bg-white/80 backdrop-filter backdrop-blur-md rounded-2xl ">
+
+                <!-- page header -->
+                <div class="header w-full bg-green-700 p-2.5 flex flex-wrap gap-3 justify-between items-center">
+                    <div class="flex w-full gap-2 overflow-auto md:w-1/2">
+                        <button
+                            class="px-1 py-1 sm:p-1.5 sm:px-3 rounded md:rounded-xl text-xs sm:text-sm transition ease-in-out duration-300 border border-white/50 inline-block whitespace-nowrap bg-white text-kraton font-semibold"
+                            wire:click="setSelectedCategory(null)">
+                            ALL
+                        </button>
+                        <button
+                            class="px-1 py-1 sm:p-1.5 sm:px-3 rounded md:rounded-xl text-xs sm:text-sm transition ease-in-out duration-300 border border-white/50 inline-block whitespace-nowrap bg-white/20 hover:bg-green-700 text-white"
+                            wire:click="setSelectedCategory({&quot;id&quot;:1,&quot;tournament_id&quot;:&quot;1&quot;,&quot;name&quot;:&quot;MEN A&quot;,&quot;gender&quot;:&quot;MALE&quot;,&quot;minimum_hcp&quot;:&quot;1&quot;,&quot;maximum_hcp&quot;:&quot;12&quot;,&quot;created_at&quot;:&quot;2024-10-11T14:08:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-10-11T14:08:01.000000Z&quot;})">
+                            MEN A
+                        </button>
+                    </div>
+                    <div class="flex w-full gap-3 md:w-1/3">
+                        <input type="text" placeholder="Search Name..."
+                            class="w-full px-2 py-1 sm:p-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-white border-opacity-50 placeholder:text-white border-[#9d9898] focus:outline-none focus:border-none focus:ring-0 text-white bg-white/20 text-sm">
+                        <button
+                            class="flex items-center justify-center p-2 px-3 text-black transition duration-300 ease-in-out bg-gray-200 rounded-xl">
+                            <i class="ph-fill ph-play "></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- table -->
+                <div class="h-full overflow-x-auto text-sm md:text-medium">
+                    <table class="min-w-full border-collapse table-fixed ">
+                        <thead class="bg-gradient-to-b from-green-800 to-green-600">
+                            <tr class="text-white xl:text-lg">
+                                <th rowspan="2"
+                                    class="w-8 p-0.5 px-1 sm:p-2 sticky-col bg-gradient-to-b from-green-800 to-green-600">
+                                </th>
+                                <th rowspan="2"
+                                    class="text-start p-0.5 px-1 sm:p-2 w-64 sticky-col bg-gradient-to-b from-green-800 to-green-600">
+                                    NAME
+                                </th>
+                                <th rowspan="2" class="p-0.5 px-1 sm:p-2">Thru</th>
+
+                                <th rowspan="2" class="p-0.5 px-1 sm:p-2">Total</th>
+                                <th rowspan="2" class="p-0.5 px-1 sm:p-2">HCP</th>
+                                <th rowspan="2" class="p-0.5 px-1 sm:p-2">NETT</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-light ">HOLE</th>
+
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">1</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">2</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">3</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">4</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">5</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">6</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">7</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">8</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">OUT</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">9</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">10</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">11</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">12</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">13</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">14</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">15</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">16</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">17</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">18</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">IN</th>
+                            </tr>
+                            <tr class="text-white xl:text-lg">
+                                <th class="p-0.5 px-1 sm:p-2 font-light">PAR</th>
+
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">1</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">2</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">3</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">4</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">5</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">6</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">7</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">8</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">OUT</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">9</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">10</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">11</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">12</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">13</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">14</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">15</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">16</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">17</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">18</th>
+                                <th class="p-0.5 px-1 sm:p-2 font-bold">IN</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-black" wire:poll.66s>
+                            <tr class="w-full border-b hover:bg-white/50 border-gray">
+                                <td class="px-4 text-center bg-white sticky-col" style="background-color: #fff;">1</td>
+                                <td class="text-sm font-semibold truncate bg-white max-w-32 sm:max-w-56 lg:max-w-72 text-start whitespace-nowrap font-inter sm:text-lg sticky-col"
+                                    style="background-color: #fff; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    LEO MAMESAH</td>
+
+                                <td class="text-center p-1.5 xl:p-3">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div
+                                            class="flex items-center justify-center w-10 h-10 font-semibold bg-white border rounded-full sm:w-12 sm:h-12 lg:text-lg">
+                                            F</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-center p-1.5 xl:p-3">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div
+                                            class="flex items-center justify-center w-10 h-10 font-semibold text-white border rounded-full sm:w-12 sm:h-12 bg-gradient-to-b from-green-800 to-green-600 lg:text-lg">
+                                            81</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-center p-1.5 xl:p-3">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div
+                                            class="flex items-center justify-center w-10 h-10 font-semibold bg-white border rounded-full sm:w-12 sm:h-12 lg:text-lg">
+                                            6</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-center p-1.5 xl:p-3">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div
+                                            class="flex items-center justify-center w-10 h-10 font-semibold text-white border rounded-full sm:w-12 sm:h-12 bg-gradient-to-b from-vivid to-falu lg:text-lg">
+                                            75</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div
+                                        class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y border-l rounded-l-3xl">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lgreen-b bg-lgreen-a text-lgreen lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            3</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div
+                                        class="w-full h-full p-1.5 flex items-center justify-center bg-white border-y border-r rounded-r-3xl">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-center p-1.5 xl:p-3">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div
+                                            class="flex items-center justify-center w-10 h-10 font-semibold text-white border rounded-full sm:w-12 sm:h-12 bg-gradient-to-b from-green-800 to-green-600 lg:text-lg">
+                                            39</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div
+                                        class="w-full h-full p-1.5 flex items-center justify-center bg-dark rounded-l-3xl">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lgreen-b bg-lgreen-a text-lgreen lg:font-semibold lg:text-lg">
+                                            3</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lgreen-b bg-lgreen-a text-lgreen lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div class="w-full h-full p-1.5 flex items-center justify-center bg-dark">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lblue-b bg-lblue-a text-lblue lg:font-semibold lg:text-lg">
+                                            5</div>
+                                    </div>
+                                </td>
+
+                                <td class="inset-0 p-0 py-1 text-center xl:py-2">
+                                    <div
+                                        class="w-full h-full p-1.5 flex items-center justify-center bg-dark rounded-r-3xl">
+                                        <div
+                                            class="flex items-center justify-center border rounded-full h-9 w-9 sm:w-9 sm:h-9 border-lred-b bg-lred-a text-lred lg:font-semibold lg:text-lg">
+                                            4</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-center p-1.5 xl:p-3">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div
+                                            class="flex items-center justify-center w-10 h-10 font-semibold text-white border rounded-full sm:w-12 sm:h-12 bg-gradient-to-b from-green-800 to-green-600 lg:text-lg">
+                                            38</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+</body>
+
+</html>
